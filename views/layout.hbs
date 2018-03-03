@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{title}}</title>
+    <link rel='stylesheet' href='/stylesheets/site.css' />
+    <link rel='stylesheet' href='/stylesheets/site.css' />
+  </head>
+  <body>
+    {{{body}}}
+    <script type="text/javascript">
+    	function check()
+    	{
+	    	var x = $('#txtX').val();
+	    	var y = $('#txtY').val();
+	    	var operation;
+	    	if($("#cong").is(":checked"))
+	    		operation = $('#cong').val();
+	    	if($("#tru").is(":checked"))
+	    		operation = $('#tru').val();
+	    	if($("#nhan").is(":checked"))
+	    		operation = $('#nhan').val();
+	    	if($("#chia").is(":checked"))
+	    		operation = $('#chia').val();
+	    	
+	    		
+
+	  	  if(operation!=='+' && operation!=='-' && operation!=='*' && operation!=='/')
+	  	  {
+	  	  	  $('#notice').html("Thông báo Chưa chọn phép tính");
+	  	  	  $('#txtResult').val("");
+	  	  }
+	  	  else {
+		  	  if(x=="" || isNaN(x))
+		  	  {
+		  	  	    $('#notice').html("Thông báo Số thứ nhất không phải là số");
+		  	  	    $('#txtResult').val("");
+		  	  }
+		    	else
+		  	    {
+		  		  if(y=="" || isNaN(y))
+		  		  {
+		  		  	  $('#notice').html("Thông báo Số thứ hai không phải là số");
+		  		  	  $('#txtResult').val("");
+		  		  }
+		  		  else {
+		  			  if(isNaN(x) && isNaN(y))
+		  			  {
+		  			  	  $('#notice').html("Thông báo Số thứ nhất không phải là số");
+		  			  	  $('#txtResult').val("");
+		  			  }
+		  			  else
+		  			  {
+		  			  	$.getJSON("/api/tinh", {txtX: x, txtY: y, operation: operation}).done(function(data){$('#txtResult').val(data.result);});
+		  			    $('#notice').html("Thông báo");
+		  			}
+		  		  	   }
+		  	    }
+		   	  }
+	    }
+		    	
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  </body>
+</html>
